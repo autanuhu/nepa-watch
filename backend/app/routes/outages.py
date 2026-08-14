@@ -28,3 +28,19 @@ def create_outage(
     db.refresh(new_outage)
 
     return new_outage
+
+
+@router.get(
+    "/",
+    response_model=list[PowerOutageResponse],
+)
+def get_outages(
+    db: Session = Depends(get_db),
+):
+    outages = (
+        db.query(PowerOutage)
+        .order_by(PowerOutage.started_at.desc())
+        .all()
+    )
+
+    return outages
