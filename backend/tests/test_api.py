@@ -4,7 +4,10 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app
-from app.schemas import PowerOutageCreatedef test_outage_validation_accepts_valid_data():
+from app.schemas import PowerOutageCreate
+
+
+def test_outage_validation_accepts_valid_data():
     outage = PowerOutageCreate(
         location="Maitumbi",
         state="Niger",
@@ -60,7 +63,4 @@ def test_health_endpoint():
     response = client.get("/health")
 
     assert response.status_code == 200
-
-    assert response.json() == {
-        "status": "healthy"
-    }
+    assert response.json() == {"status": "healthy"}
